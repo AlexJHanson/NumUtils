@@ -12,7 +12,6 @@
 # Code
         .text
         .globl  decToUInt
-        .type   decToUInt, @function
 decToUInt:
         push    rbp
         mov     rbp, rsp
