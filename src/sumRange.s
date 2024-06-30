@@ -8,6 +8,7 @@
 # Code
         .text
         .globl  sumRange
+        .type   sumRange, @function
 sumRange:                       # Prologue
         push    rbp             # Save caller's stack frame pointer
         mov     rbp, rsp        # Set new frame pointer

@@ -13,7 +13,13 @@ int main(void) {
     readLn(text, MAX);
 
     decToUInt(text, &num);
-    printf("\nInput:\n%5c %10d %10u 0x%010X\n\n", ' ', num, num, num);
+    printf("\nInput:\n%5c %10d %10u 0x%08X\n\n", ' ', num, num, num);
+
+    writeStr("Enter an signed integer (- for negative | + optional for positive): ");
+    readLn(text, MAX);
+
+    decToSInt(text, &num);
+    printf("\nInput:\n%5c %10d %10u 0x%08X\n\n", ' ', num, num, num);
 
     return 0;
 }

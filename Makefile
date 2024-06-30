@@ -21,7 +21,7 @@ SRCS := $(wildcard $(SRC_DIR)/*.s)
 OBJS := $(patsubst $(SRC_DIR)/%.s,$(OBJ_DIR)/%.o,$(SRCS))
 
 # Library name
-LIBRARY := $(BIN_DIR)/libNumUtils.dylib
+LIBRARY := $(BIN_DIR)/libNumUtils.so
 
 # Executable name and path
 EXECUTABLE := $(BIN_DIR)/driver
