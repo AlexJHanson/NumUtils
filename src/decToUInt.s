@@ -6,7 +6,7 @@
 # Returns 0
         .intel_syntax noprefix
 # Constants
-        .equ    RADIX,    10
+        .equ    RADIX,    0x0A
         .equ    NUM_MASK, 0x0f
         .equ    NULL,     0
 # Code
