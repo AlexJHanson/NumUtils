@@ -6,10 +6,11 @@
 # Returns 0
         .intel_syntax noprefix
 # Constants
-        .equ    MAX_NEGATIVE, 0x80000000    # -2,147,483,648
+        .equ    MAX_NEGATIVE,   0x80000000      # -2,147,483,648
+        .equ    TWOS_COMP_MASK, 0xFFFFFFFF   
 # Locals
-        .equ    negative,  -4
-        .equ    localSize, -16
+        .equ    sign,           -4
+        .equ    localSize,      -16
 # Code
         .text
         .globl decToSInt
@@ -19,26 +20,27 @@ decToSInt:
         mov     rbp, rsp
         add     rsp, localSize
 
-        cmp     BYTE PTR [rdi], '-'         # Check if first character indicates a negative number
-        jne     plus_sign                   # If not negative, check for an explicit plus sign
-        mov     DWORD PTR negative[rbp], 1  # Set negative flag
-        add     rdi, 1                      # (char *)++ Skip that sign character
-        jmp     convert                     # Go to conversion
+        cmp     BYTE PTR [rdi], '-'             # Check if first character indicates a negative number
+        jne     plus_sign                       # If not negative, check for an explicit plus sign
+        mov     DWORD PTR sign[rbp], 1          # Set negative flag
+        add     rdi, 1                          # (char *)++ Skip sign character
+        jmp     convert                         # Go to conversion
 plus_sign:
-        mov     DWORD PTR negative[rbp], 0  # Number is assummed positive
-        cmp     BYTE PTR [rdi], '+'         # Is there a plus sign
-        jne     convert                     # If not, jump to conversion
-        add     rdi, 1                      # If there is, skip it (char *)++
+        mov     DWORD PTR sign[rbp], 0          # Number is assummed positive
+        cmp     BYTE PTR [rdi], '+'             # Is there a plus sign
+        jne     convert                         # If not, jump to conversion
+        add     rdi, 1                          # If there is, skip it (char *)++
 convert:
-        call    decToUInt                   # Convert number: As long as number <= MAX_INT conversion will be correct
+        call    decToUInt                       # Convert number: As long as number <= MAX_INT conversion will be correct
 
-        cmp     BYTE PTR negative[rbp], 0
+        cmp     BYTE PTR sign[rbp], 0           # Number is positive
         je      end
 
-        cmp     DWORD PTR [rsi], MAX_NEGATIVE # unsigned function will have generated unsigned INT_MAX + 1 for MAX_NEGATIVE,
-        je      end                           # This number is already in the correct 2's compliment form
+        cmp     DWORD PTR [rsi], MAX_NEGATIVE   # unsigned function will have generated  INT_MAX + 1 for MAX_NEGATIVE,
+        je      end                             # this number is already in the correct 2's compliment form
 
-        neg     DWORD PTR [rsi]               # For negative numbers with |num| <= MAX_INT 2's compliment value
+        xor     DWORD PTR [rsi], TWOS_COMP_MASK # For negative numbers with |num| <= MAX_INT 2's compliment value
+        add     DWORD PTR [rsi], 1
 end:
         mov     eax, 0
         mov     rsp, rbp
