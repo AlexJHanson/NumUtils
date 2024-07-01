@@ -2,7 +2,7 @@
 # Converts decimal character string to unsigned 32-bit int.
 # Input:
 #       rdi <- (char*) decimal characters
-#       rsi <- Unsigned int output (4 bytes)     
+#       rsi <- (unsigned int*) Unsigned int output 
 # Returns 0
         .intel_syntax noprefix
 # Constants

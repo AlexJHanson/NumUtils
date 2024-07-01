@@ -7,9 +7,9 @@
 # Constants
             .equ    ASCII,      0x30
             .equ    NULL,       0x00
-            .equ    RADIX,      10
+            .equ    RADIX,      0x0A
 # Local Variables
-            .equ    tmpArry,   -12
+            .equ    tmpArry,   -11
             .equ    localSize, -16
 # Code
             .text
