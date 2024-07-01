@@ -28,7 +28,7 @@ intToUDec:
             mov     eax, esi
 while_convert:
             mov     edx, 0                # Zero out remainder register
-            div     ecx                   # Divsor = RADIX = 10
+            div     ecx                   # Divsor = RADIX = 10     div stores remainder in edx, new dividend in eax
 
             or      dl, ASCII             # Convert to ASCII digit format
             mov     [r8], dl              # Store char representation in tmp array
