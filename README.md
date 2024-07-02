@@ -1,4 +1,4 @@
-# String Library written in assembly language 
+# Integer utilities written in assembly language 
 <span style="font-size:20px; font-weight: bold;">x86_64 &nbsp;&nbsp; Architecture &nbsp;&nbsp;Linux Ubuntu</span>
 
 ## Interface &nbsp;&nbsp;<NumUtils.h>
