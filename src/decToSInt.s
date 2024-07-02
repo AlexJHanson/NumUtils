@@ -2,15 +2,15 @@
 # Converts decimal string input to signed 32 bit integer
 # Input:
 #       rdi <- (char*) decimal characters
-#       rsi <- (int*) signed int output (4 bytes)
+#       esi <- (int*) signed int output (4 bytes)
 # Returns 0
         .intel_syntax noprefix
 # Constants
         .equ    MAX_NEGATIVE,   0x80000000      # -2,147,483,648
         .equ    TWOS_COMP_MASK, 0xFFFFFFFF   
 # Locals
-        .equ    sign,           -4
-        .equ    localSize,      -16
+        .equ    sign,          -4
+        .equ    localSize,     -16
 # Code
         .text
         .globl decToSInt
